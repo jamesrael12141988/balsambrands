@@ -14,7 +14,7 @@
 - start cloning the repo
 
 ## Expected Test Output
-- Will fail if dialog popup promo window appear in an expected timming
+- Will fail if dialog popup promo window appear in an unexpected timming
 - 3rd result is changing,
 - PLEASE GET THE PRODUCT NAME OF 3RD RESULT FIRST 
     AND PUT IT TEMPORARILY IN tesdata.json FILE
