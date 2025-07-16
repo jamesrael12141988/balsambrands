@@ -1,5 +1,4 @@
 import { Page, Locator } from '@playwright/test';
-import { PopUp } from './popup.fixture';
 import { clickElement } from '../utils/ui-actions';
 
 export class ProductPage {
@@ -7,17 +6,19 @@ export class ProductPage {
     addToCartButton: Locator;
     viewCartButton: Locator;
     popupCloseButton: Locator;
-    productPricelabel: Locator;
+    priceLabel: Locator;
+    quantityLabel: Locator;
     addToCartButtonproductQuantity: Locator;
 
     constructor(page: Page) {
         this.page = page;
 
         // Product detail locators
-        this.addToCartButton = page.getByTestId('produt-detail-container').getByTestId('pdc-btn-addtocart');
-        this.productPricelabel = page.locator("//span[contains(@class, 'productPrice_new-price')]/span");
+        this.addToCartButton = page.getByTestId('pdc-btn-addtocart').nth(1);
+        this.priceLabel = page.locator("//span[contains(@class, 'productPrice_new-price')]/span");
+        this.quantityLabel = page.locator("//span[contains(@class, 'productPrice_quantity')]/span"); // TODO: update locator
         this.addToCartButtonproductQuantity = page.getByTestId('pdc-input-totalquantity');
-
+        
         // Dialog window locators
         this.viewCartButton = page.getByTestId('pdc-add-to-cart-modal-btn-viewcart');
         this.popupCloseButton = page.getByRole('img', { name: 'close icon' });
@@ -43,14 +44,10 @@ export class ProductPage {
     }
 
     async clickAddToCart() {
-        const popup = new PopUp(this.page);
-        await popup.removePopupIfVisible();
         await clickElement(this.addToCartButton);
     }
 
     async viewCart() {
-        const popup = new PopUp(this.page);
-        await popup.removePopupIfVisible();
         await clickElement(this.viewCartButton);
     }
     //#endregion

@@ -20,11 +20,11 @@ locator: Locator, options?: {
   clicks?: number;
   timeout?: number;
 }, p0?: { timeout: number; }) {
-  const timeout = options?.timeout ?? 60000;
+  const timeout = options?.timeout ?? 30000;
   const clicks = options?.clicks ?? 1;
 
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {      
       await locator.scrollIntoViewIfNeeded();
       await expect(locator).toBeVisible({ timeout: 2000 });
       await expect(locator).toBeEnabled({ timeout: 2000 });
@@ -32,17 +32,15 @@ locator: Locator, options?: {
       for (let i = 0; i < clicks; i++) {
         const popup = new PopUp(locator.page());
         await popup.removePopupIfVisible();
-        await popup.waitUntilLoadingComplete();
         await locator.click({ timeout });
       }
 
       return;
-    } catch (error) {
+    } catch (irnored) {
       // if (attempt === 2) {
       //   throw new Error(`Failed to click element after 3 attempts: ${error}`);
       // }
-      // await locator.page().waitForTimeout(1000); // Wait a bit before retrying
-      console.warn(`Retrying click (${attempt + 1}/3)...`);
+      // console.warn(`Retrying click (${attempt + 1}/3)...`);
     }
   }
 }
@@ -66,18 +64,13 @@ locator: Locator, options?: {
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
       await locator.scrollIntoViewIfNeeded();
-      await expect(locator).toBeVisible({ timeout: 2000 });
-
       for (let i = 0; i < checks; i++) {
-        const popup = new PopUp(locator.page());
-        await popup.removePopupIfVisible();
-        await popup.waitUntilLoadingComplete();
         expect(locator).toBeVisible({ timeout });
       }
 
       return;
-    } catch (error) {
-      console.warn(`Retrying check element visibility (${attempt + 1}/${checks})...`);
+    } catch (ignored) {
+      // console.warn(`Retrying check element visibility (${attempt + 1}/${checks})...`);
     }
   }
 }

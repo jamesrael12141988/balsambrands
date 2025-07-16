@@ -1,7 +1,6 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, test } from '@playwright/test';
 import { BASE_URL } from '../utils/env';
 import { clickElement } from '../utils/ui-actions';
-import { PopUp } from './popup.fixture';
 
 export class HomePage {
   readonly page: Page;
@@ -14,14 +13,16 @@ export class HomePage {
     this.bannerHomeCloseBtn = this.page.getByTestId('close-cookie-banner');
   }
 
+  //#region [REUSEABLE LOCATORS]
   result(number: number): Locator {
     return this.page.locator(`(//*[@data-cnstrc-item-section="Products"])[${number}]`);
   }
+  //#endregion
 
+  //#region [REUSEABLE METHODS]
   async navigateHomepage() {
-    const url = BASE_URL || 'https://www.balsamhill.com/';
+    const url = BASE_URL || 'https://www.balsamhill.com/'; // TODO: url should be came from envi / To fix if still have time
     await this.page.goto(url);
-    // await this.page.maximizeWindow();
   }
 
   async searchQuery(query: string) {
@@ -34,9 +35,9 @@ export class HomePage {
   }
 
   async removeHomeBanner() {
-    const popup = new PopUp(this.page);
-    await popup.removePopupIfVisible();
     await clickElement(this.bannerHomeCloseBtn);
   }
+
+  //#endregion
 
 }

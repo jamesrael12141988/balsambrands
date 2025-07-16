@@ -1,27 +1,40 @@
-import { Page, Locator } from '@playwright/test';
-import { PopUp } from './popup.fixture';
+import { Page, expect } from '@playwright/test';
 import { checkElementVisibility, clickElement } from '../utils/ui-actions';
 
 export class CartPage {
   readonly page: Page;
+  productPricelabel: any;
 
   constructor(page: Page) {
     this.page = page;
   }
 
+  //#region [REUSEABLE LOCATORS]
   deleteProductButton(product: String) {
-    return this.page.locator(`//button[@aria-label='Remove ${product}']`);
+    return this.page.locator(`(//*[@aria-label="${product}"])[2]/ancestor::*[contains(@class, 'position-relative')]//button[contains(@class, 'delete')]`);
   }
 
-  hasBeenRemoved(product: String) {
-    return this.page.locator(`//ul[contains(@class, 'cartProductDetailItem_removed-product-list')]//span[text()='${product} has been removed.']`);
+  hasBeenRemovedLabel(product: String) {
+    return this.page.locator(`//ul[contains(@class, 'cartProductDetailItem_removed-product-list')]//span[contains(normalize-space(), '${product}')]`);
   }
+  //#endregion
 
+  //#region [REUSEABLE METHODS]
   async removeProduct(product: String) {
-    const popup = new PopUp(this.page);
-    await popup.removePopupIfVisible();
-    await checkElementVisibility(this.deleteProductButton(product), { checks: 3, timeout: 60000 });
+    await checkElementVisibility(this.deleteProductButton(product));
     await clickElement(this.deleteProductButton(product));
-    await popup.waitUntilLoadingComplete();
   }
+
+  async checkProductPriceIsDisplayed(price: string) {
+        const priceLabel = this.productPricelabel;
+        const priceValue = priceLabel.innerText();
+        expect(priceValue).toEqual(price);
+    }
+
+    async checkProductQuantityIsDisplayed(price: string) {
+        const priceLabel = this.productPricelabel;
+        const priceValue = priceLabel.innerText();
+        expect(priceValue).toEqual(price);
+    }
+    //#endregion
 }
