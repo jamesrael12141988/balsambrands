@@ -4,20 +4,24 @@ import { clickElement } from '../utils/ui-actions';
 import { PopUp } from './popup.fixture';
 
 export class HomePage {
+  
   readonly page: Page;
   readonly searchInput: Locator;
   readonly bannerHomeCloseBtn: Locator;
 
+  
   constructor(page: Page) {
     this.page = page;
     this.searchInput = this.page.locator('//*[@id="constructor-search-input"]');
     this.bannerHomeCloseBtn = this.page.getByTestId('close-cookie-banner');
   }
 
-  result(number: number): Locator {
+  
+  resultLabel(number: number): Locator {
     return this.page.locator(`(//*[@data-cnstrc-item-section="Products"])[${number}]`);
   }
 
+  //#region [REUSEABLE METHODS]
   async navigateHomepage() {
     const url = BASE_URL || 'https://www.balsamhill.com/';
     await this.page.goto(url);
@@ -29,7 +33,7 @@ export class HomePage {
   }
 
   async selectResult(index: number) {
-    const resultItem = this.result(index);
+    const resultItem = this.resultLabel(index);
     await clickElement(resultItem);
   }
 
@@ -38,5 +42,6 @@ export class HomePage {
     await popup.removePopupIfVisible();
     await clickElement(this.bannerHomeCloseBtn);
   }
+  //#endregion
 
 }

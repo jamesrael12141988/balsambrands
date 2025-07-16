@@ -7,16 +7,16 @@ export class ProductPage {
     addToCartButton: Locator;
     viewCartButton: Locator;
     popupCloseButton: Locator;
-    productPricelabel: Locator;
-    addToCartButtonproductQuantity: Locator;
+    pricelabel: Locator;
+    quantityLabel: Locator;
 
     constructor(page: Page) {
         this.page = page;
 
         // Product detail locators
         this.addToCartButton = page.getByTestId('produt-detail-container').getByTestId('pdc-btn-addtocart');
-        this.productPricelabel = page.locator("//span[contains(@class, 'productPrice_new-price')]/span");
-        this.addToCartButtonproductQuantity = page.getByTestId('pdc-input-totalquantity');
+        this.pricelabel = page.locator("//span[contains(@class, 'productPrice_new-price')]/span");
+        this.quantityLabel = page.getByTestId('pdc-input-totalquantity');
 
         // Dialog window locators
         this.viewCartButton = page.getByTestId('pdc-add-to-cart-modal-btn-viewcart');

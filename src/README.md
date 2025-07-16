@@ -1,41 +1,54 @@
 # Playwright Test Automation Framework
 
-## 🔧 Setup
+## Project Description
+- balsam brands assessment exam
+- Playwright test automation framework
+- Test data from JSON files
+- CI pipeline
 
-```bash
+## Instruction To Clone
+- open visual studio code
+- clone the repo
+- enter the git clone url https://github.com/jamesrael12141988/balsambrands.git
+- create and folder
+- start cloning the repo
+
+## Expected Test Output
+- Will fail if dialog popup promo window appear in an expected timming
+- 3rd result is changing,
+- PLEASE GET THE PRODUCT NAME OF 3RD RESULT FIRST 
+    AND PUT IT TEMPORARILY IN tesdata.json FILE
+- Dialog Popup still need to be fixed
+- SINCE I HAVE LIMITED TIME BECAUSE I'M CURRENLTY ON SHIFT, NOT ALL LOCATORS NEED TO BE FIXED
+
+## Setup
+npm install
 npm install --save-dev @playwright/test
 npm install --save-dev @types/dotenv
 npm install dotenv --save-dev
 
 npm install
 cp .env.example .env
-```
 
-## 🚀 Run Tests
+## Test data
+- JSON files in `/data` are used for test data
+- 3rd result is changing, 
+- PLEASE GET THE PRODUCT OF 3RD RESULT FIRST 
+    AND PUT IT TEMPORARILY IN tesdata.json FILE
 
-```bash
+## Run Tests
 npx playwright test
-```
 
-## 🧪 Run by Tag (for CI pipelines)
+## Run by Tag (for CI pipelines)
+npx playwright test --grep @regression
 
-```bash
-npx playwright test --grep @smoke
-```
-
-## 🖥️ CI Simulation
-
-GitHub Actions is used for CI integration. You can modify `.github/workflows/playwright.yml` to add Slack/email reports using webhook stubs in `utils/reporter.ts`.
-
-## 📂 Structure
-
+## Structure
 - `/pages`: Page Object classes
 - `/tests`: Test specs
 - `/data`: Test data in JSON
 - `/utils`: Helpers (env, reporting)
 - `.env`: Configurable base URL and secrets
 
-## 📈 Reporting
-
+## Reporting
 - Allure is supported via `allure-playwright`
-- HTML reports are auto-generated
+- HTML reports are auto-generated [TODO]

@@ -13,7 +13,6 @@ export class PopUp {
     }
 
     //#region [REUSEABLE METHODS]
-
     async removePopupIfVisible() {
         try {
         // await this.page.waitForTimeout(2000); // wait for the poup if will appear
